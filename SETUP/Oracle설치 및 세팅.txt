@@ -1,0 +1,217 @@
+
+ :: 오라클 데이터베이스
+
+  1. 개발환경구축
+    
+    I.oracle DBMS 다운로드
+
+     1-1) https://www.oracle.com   [접속]
+     1-2) 검색 : expressedition or ExpressEdition
+     1-3) oracla database 첫번째 항목 선택,
+     1-4) Download Oracle XE 버튼 클릭,
+          64비트 설치용 프로그램 다운로드 ==> DevProgram
+
+
+  
+    II. sqlDeveloper 다운로드
+
+     2-1) 검색 : sql developer or SQL Developer
+     ※ Modeler : 데이터베이스 설계용 [for DBA]
+        Developer : 데이터베이스 실습용 [for Developer]
+
+     2-2) 다운로드
+
+     Windows 64-bit with JDK 11 included : JDK 환경구축이 안된 상태라면 [
+    
+     Windows 32-bit/64-bit : JDK 환경구축이 되어있는 상태
+
+     ※ 헷갈리면 Windows 64-bit with JDK 11 included
+
+     ※ JDK 없는 버전은 JAVA_HOME 경로 (...c:\program files(x86)\java\jdk11.. );
+
+    --------------------------------------------
+  
+    [오라클DBMS] OracleXE213_Win64.zip     
+    [SQL Developer] sqldeveloper-22.2.1.234.1810-x64.zip
+
+
+  III. 오라클DBMS 설치
+
+   2-1. c:\에 oracle21c 폴더를 생성합니다.
+   2-2. 다운받은 oracleXE213_Win64.zip 파일의 압축을
+        풀고, 그 안에 있는 setup.exe를 실행합니다.
+
+  ※ c:\oracle21c\dbhome\XE
+
+  ※ EM (https://localhost:5500/em)
+     오라클 DBMS 성능 측정, 분석, 개선을 위한 모니터링 서비스 [for DBA]
+
+
+  2. 샘플 스키마 설치
+
+   I. 샘플 스키마 준비
+
+   2-1. 오라클 홈페이지 > 검색 : database examples installation guide 21c
+
+  ※ 구글링 ==> oracle 21c sample schemas github 또는 아래의 주소를 복&붙
+  
+  ※ 설치 가이드 문서
+  https://docs.oracle.com/en/database/oracle/oracle-database/21/comsc/installing-sample-schemas.html#GUID-3820972A-08D7-4033-9524-1E36676594EE
+
+  ※ 샘플스키마 저장소
+https://github.com/oracle-samples/db-sample-schemas/releases
+
+  
+  II. 샘플스키마 설치용 명령 프롬프트
+
+   1) 시작 - CMD,   [cd \] [cd oracle21c\dbhomeXE]
+
+  ※ 명령어 실행 위치가 c:\oracle21c\dbhomeXE 로 이동한 뒤 다음의 명령을 실행합니다.
+
+   2) sqlplus
+
+   3) 사용자명 : system
+      비밀번호 : 0000   [비밀번호 입력은 보안상 이유로 노출되지 않음]
+   
+    ※ SYS [최고관리자], SYSTEM [시스템관리자] 계정
+       - SYS : 완벽한 데이터베이스 관리를 위한 계정 [백업, 복원, 스케쥴링]
+       - SYSTEM : 관리자 계정으로 데이터베이스 객체, 사용자 계정 생성/관리용
+       - 오라클 DBMS 설치시 자동으로 셋팅되어 있음.
+ 
+   4) SQL > alter session set "_ORACLE_SCRIPT"=true; 
+      세션이 변경되었습니다.
+     
+   5) SQL > @?/demo/schema/human_resources/hr_main.sql
+
+   ※ @ : 실행
+      ? : 현재 위치에서
+      /demo/schema/human_resources/hr_main.sql : 해당 파일을
+
+  6) 다음 항목을 순서대로 올바르게 입력합니다.
+
+specify password for HR as parameter 1:
+1의 값을 입력하십시오: 0000
+
+specify default tablespeace for HR as parameter 2:
+2의 값을 입력하십시오: users
+
+specify temporary tablespace for HR as parameter 3:
+3의 값을 입력하십시오: temp
+
+specify password for SYS as parameter 4:
+4의 값을 입력하십시오: 0000
+
+specify log path as parameter 5:
+5의 값을 입력하십시오: c:\oracle21c\dbhomeXE\demo\schema\log
+
+specify connect string as parameter 6:
+6의 값을 입력하십시오: localhost:1521
+
+...중간 실행과정은 생략! ....
+PL/SQL procedure successfully completed.     [설치완료!]
+
+※ 설치 script 경로나, 대소문자를 주의하세요!
+
+※ 오라클 18c 쯤 부터? 샘플 스키마 계정(HR, BI, CO, ..등등)이 자동으로 활성화 되지 않고, 수동으로 활성화시켜 줘야 함!!
+
+
+   3.sqlDeveloper 설정
+
+    I. 계정설정
+
+	- hr, hanul, SYSTEM(계정명 : SYS, 롤 : SYSDBA)
+        - 비밀번호 : 0000
+        ※ 실제 시스템에서는 복잡한 비번~
+ 
+
+    II. 환경설정
+
+      - 도구 > 환경설정 
+      1) 인코딩 : UTF-8
+      2) 글꼴 : 글꼴크기 20?
+      3) 테마 : (알아서..또는 Dracular 등의 테마 설치)
+      4) 행번호 표시 : 체크(=사용)
+
+
+
+ :: DBMS 종류
+
+ - Oracle
+ - MySQL
+ - MS-SQL
+ - sqlite
+ - ... dbms ranking .. 구글검색 참고!
+
+
+  
+ ※ Oracle : 상업용, 도입 비용 크다. + SQL Developer   [GUI : 그래픽 유저 인터페이스]
+   
+    MySQL : 상업용,개발용 [Oracle 도입 여력안되면..] + WorkBench
+    https://dev.mysql.com/downloads/mysql/
+
+ ※ Toad for Oracle, HeidiSQL 등의 또다른 SQL 관리/작성 도구들도 있음.
+
+ ※ SQLPLUS : CLI [command line interface]
+
+    1) SYS 계정
+
+       - 시작 > CMD
+       - sqlplus sys as sysdba    [명령 프롬프트]
+       - sys as sysdba            [SQLPLUS]
+       - 비밀번호 : 0000 
+
+    2) SYSTEM 계정
+
+
+
+  :: 오라클DBMS Multitanent
+
+     - 데이터베이스를 어디에? 어떻게? 어떤 방식으로 저장하는지 관리
+       (우리는 모른다..)  
+
+     ※ 멀티테넌트 개념
+
+     소프트웨어 멀티테넌시라는 용어는 소프트웨어 아키텍처의 하나를 가리키며, 여기에서 하나의 소프트웨어 인스턴스가 한 대의 서버 위에서 동작하면서 여러 개의 테넌트를 서비스한다. 여기에서 테넌트란 소프트웨어 인스턴스에 대해 공통이 되는 특정 접근 권한을 공유하는 사용자들의 그룹이다.
+        
+     - DB 종류
+     1) CDB (Container DataBase) : 오라클 11g 이전에 버전에서 사용하던 DB 방식[과거]        └SID : xe
+          
+     2) PDB (Pluggable DataBase) : 오라클 11g 이후 버전에서 사용하는 DB 방식[요즘방식]      └서비스 이름 : xepdb1
+    ※ SQL PLUS --> sys as sysdba로 접속 후 select name from v$pdbs; 에서 확인
+       pdbSEED : 씨앗 (원본)
+       xepdb1   : 사본 (씨앗을 복사해서 만든 복제품), xepdb2, ...계속 자유롭게 추가/제거     
+     
+
+    
+
+  :: Oracle 설치 후 VSC LiveServer 실행오류 조치
+
+   - EM(Express Manager)가 5500번 포트를 선점으로
+     포트충돌이 발생!!
+
+   - localhost:5500/index.html 에러발생
+
+   1) VSC 실행
+
+   ※ 제한된 모드 ==> 신뢰!
+
+   2) Ctrl + Shift + P, settings.json 편집
+
+      기존설정들...,
+      "liveServer.settgins.port": 5501,
+      나머지 설정들...
+
+   ※ Settings.jSon 수정하면 자동저장~
+
+   ※ VSC 종료 후 재실행 해서 LiveServer 실행
+
+
+
+
+
+
+
+
+
+
+
